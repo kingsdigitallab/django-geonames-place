@@ -56,7 +56,8 @@ class Place(TimeStampedModel):
         ordering = ['address', 'country']
 
     def __str__(self):
-        return '{}, {}'.format(self.address, self.country)
+        return '{}, {} in {}'.format(
+            self.address, self.class_description, self.country)
 
     def save(self, *args, **kwargs):
         if self.update_from_geonames:
