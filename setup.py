@@ -24,15 +24,15 @@ def get_version(*file_paths):
 version = get_version("geonames_place", "__init__.py")
 
 
-if sys.argv[-1] == 'publish':
+if sys.argv[-1] == 'dist':
     try:
         import wheel
         print("Wheel version: ", wheel.__version__)
     except ImportError:
         print('Wheel library missing. Please run "pip install wheel"')
         sys.exit()
-    os.system('python setup.py sdist upload')
-    os.system('python setup.py bdist_wheel upload')
+    os.system('python setup.py sdist')
+    os.system('python setup.py bdist_wheel')
     sys.exit()
 
 if sys.argv[-1] == 'tag':
