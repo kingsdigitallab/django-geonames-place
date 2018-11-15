@@ -2,14 +2,11 @@
 Django Geonames Place
 =============================
 
-.. image:: https://badge.fury.io/py/django-geonames-place.svg
-    :target: https://badge.fury.io/py/django-geonames-place
+.. image:: https://travis-ci.org/kingsdigitallab/django-geonames-place.svg?branch=master
+    :target: https://travis-ci.org/kingsdigitallab/django-geonames-place
 
-.. image:: https://travis-ci.org/jmiguelv/django-geonames-place.svg?branch=master
-    :target: https://travis-ci.org/jmiguelv/django-geonames-place
-
-.. image:: https://codecov.io/gh/jmiguelv/django-geonames-place/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/jmiguelv/django-geonames-place
+.. image:: https://codecov.io/gh/kingsdigitallab/django-geonames-place/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/kingsdigitallab/django-geonames-place
 
 Application to access Geonames Places directly from Django.
 The application can create places by using a geonames id or by using a search address.
