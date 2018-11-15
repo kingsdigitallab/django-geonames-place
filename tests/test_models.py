@@ -17,7 +17,7 @@ from geonames_place.models import Place
 
 
 @unittest.skipUnless(
-    bool(settings.GEONAMES_KEY), 'No GEONAMES_KEY environment variable set')
+    settings.GEONAMES_KEY, 'No GEONAMES_KEY environment variable set')
 class TestGeonames_place(TestCase):
 
     def setUp(self):

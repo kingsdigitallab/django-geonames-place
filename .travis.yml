@@ -7,8 +7,8 @@ python:
   - "3.6"
 
 env:
-  - TOX_ENV=py36-django
   - TOX_ENV=py35-django
+  - TOX_ENV=py36-django
 
 matrix:
   fast_finish: true
