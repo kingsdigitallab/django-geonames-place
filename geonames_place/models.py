@@ -131,3 +131,30 @@ class Place(TimeStampedModel):
             count += 1
 
         return count
+
+    @staticmethod
+    def get_or_create_from_geonames(address, country_code=None):
+        if not address:
+            return None
+
+        if len(address) < 3:
+            return None
+
+        options = {
+            'key': settings.GEONAMES_KEY,
+            'maxRows': 1
+        }
+
+        if country_code:
+            options['country'] = country_code
+
+        geonames = geocoder.geonames(address, **options)
+
+        for g in geonames:
+            p, _ = Place.objects.get_or_create(geonames_id=g.geonames_id)
+            p._hydrate(g)
+            p.save()
+
+            return p
+
+        return None
