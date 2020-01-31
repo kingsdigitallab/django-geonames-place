@@ -49,8 +49,8 @@ setup(
     name="django-geonames-place",
     version=version,
     description="""Application to access Geonames Places directly from Django.
-The application can create places by using a geonames id or by using a search
-address.""",
+    The application can create places by using a geonames id or by using a
+    search address.""",
     long_description=readme + "\n\n" + history,
     author="Miguel Vieira",
     author_email="jmvieira@gmail.com",
