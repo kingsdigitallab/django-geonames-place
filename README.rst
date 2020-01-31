@@ -1,6 +1,6 @@
-=============================
+=====================
 Django Geonames Place
-=============================
+=====================
 
 .. image:: https://travis-ci.org/kingsdigitallab/django-geonames-place.svg?branch=master
     :target: https://travis-ci.org/kingsdigitallab/django-geonames-place
@@ -9,9 +9,11 @@ Django Geonames Place
     :target: https://codecov.io/gh/kingsdigitallab/django-geonames-place
 
 Application to access Geonames Places directly from Django.
-The application can create places by using a geonames id or by using a search address.
+The application can create places by using a geonames id or by using a search
+address.
 
-This application depends on the very useful `Python Geocoder <https://geocoder.readthedocs.io/index.html>`_ library.
+This application depends on the very useful
+`Python Geocoder <https://geocoder.readthedocs.io/index.html>`_ library.
 
 Documentation
 -------------
@@ -56,12 +58,7 @@ To reference Geonames Place in your models:
         ...
         place = models.ForeignKey(Place, on_delete=models.CASCADE)
         ...
-    ]
 
-Features
---------
-
-* TODO
 
 Running Tests
 -------------
