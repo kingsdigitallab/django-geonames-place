@@ -35,3 +35,6 @@ To reference Geonames Place in your models:
         ...
     ]
 
+Integration with Django admin is automatic. To have a similar lookup
+outside of the admin, use the widgets.PlaceSelect widget (requires
+Select2, but does not declare its own `media` property).
