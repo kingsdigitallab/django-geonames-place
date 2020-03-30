@@ -62,3 +62,9 @@ class PlaceSelect(AutocompleteMixin, forms.Select):
 
     def get_url(self):
         return reverse('geonames_place:place_autocomplete')
+
+
+class PlaceSelectMultiple(AutocompleteMixin, forms.SelectMultiple):
+
+    def get_url(self):
+        return reverse('geonames_place:place_autocomplete')
