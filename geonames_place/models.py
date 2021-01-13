@@ -9,7 +9,7 @@ class ClassDescription(TimeStampedModel):
     title = models.CharField(max_length=128, unique=True)
 
     class Meta:
-        ordering = ['title']
+        ordering = ["title"]
 
     def __str__(self):
         return self.title
@@ -20,18 +20,18 @@ class Country(TimeStampedModel):
     code = models.CharField(max_length=16, unique=True)
 
     class Meta:
-        ordering = ['name', 'code']
-        verbose_name_plural = 'Countries'
+        ordering = ["name", "code"]
+        verbose_name_plural = "Countries"
 
     def __str__(self):
-        return '{} ({})'.format(self.name, self.code)
+        return "{} ({})".format(self.name, self.code)
 
 
 class FeatureClass(TimeStampedModel):
     title = models.CharField(max_length=16, unique=True)
 
     class Meta:
-        ordering = ['title']
+        ordering = ["title"]
 
     def __str__(self):
         return self.title
@@ -42,22 +42,22 @@ class Place(TimeStampedModel):
     update_from_geonames = models.BooleanField(default=True)
     address = models.CharField(max_length=512, blank=True, null=True)
     class_description = models.ForeignKey(
-        ClassDescription, blank=True, null=True, on_delete=models.CASCADE)
+        ClassDescription, blank=True, null=True, on_delete=models.CASCADE
+    )
     country = models.ForeignKey(
-        Country, blank=True, null=True, on_delete=models.CASCADE)
+        Country, blank=True, null=True, on_delete=models.CASCADE
+    )
     feature_class = models.ForeignKey(
-        FeatureClass, blank=True, null=True, on_delete=models.CASCADE)
-    lat = models.DecimalField(
-        max_digits=9, decimal_places=6, blank=True, null=True)
-    lon = models.DecimalField(
-        max_digits=9, decimal_places=6, blank=True, null=True)
+        FeatureClass, blank=True, null=True, on_delete=models.CASCADE
+    )
+    lat = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    lon = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
 
     class Meta:
-        ordering = ['address', 'country']
+        ordering = ["address", "country"]
 
     def __str__(self):
-        return '{}, {} in {}'.format(
-            self.address, self.class_description, self.country)
+        return "{}, {} in {}".format(self.address, self.class_description, self.country)
 
     def save(self, *args, **kwargs):
         if self.update_from_geonames:
@@ -66,12 +66,17 @@ class Place(TimeStampedModel):
 
         super().save(*args, **kwargs)
 
+    @property
+    def geo(self):
+        return {"lat": self.lat, "lon": self.lon}
+
     def hydrate_from_geonames(self):
         if not self.geonames_id:
             return
 
         g = geocoder.geonames(
-            self.geonames_id, key=settings.GEONAMES_KEY, method='details')
+            self.geonames_id, key=settings.GEONAMES_KEY, method="details"
+        )
 
         self._hydrate(g)
 
@@ -83,22 +88,23 @@ class Place(TimeStampedModel):
 
         if geoname.class_description:
             cd, _ = ClassDescription.objects.get_or_create(
-                title=geoname.class_description)
+                title=geoname.class_description
+            )
             self.class_description = cd
 
         if geoname.country and geoname.country_code:
             c, _ = Country.objects.get_or_create(
-                name=geoname.country, code=geoname.country_code)
+                name=geoname.country, code=geoname.country_code
+            )
             self.country = c
 
         if geoname.feature_class:
-            fc, _ = FeatureClass.objects.get_or_create(
-                title=geoname.feature_class)
+            fc, _ = FeatureClass.objects.get_or_create(title=geoname.feature_class)
             self.feature_class = fc
 
         self.lat = geoname.lat
 
-        if 'lon' in geoname.fieldnames:
+        if "lon" in geoname.fieldnames:
             self.lon = geoname.lon
         else:
             self.lon = geoname.lng
@@ -114,12 +120,12 @@ class Place(TimeStampedModel):
             return count
 
         options = {
-            'key': settings.GEONAMES_KEY,
-            'maxRows': settings.GEONAMES_MAX_RESULTS
+            "key": settings.GEONAMES_KEY,
+            "maxRows": settings.GEONAMES_MAX_RESULTS,
         }
 
         if country_code:
-            options['country'] = country_code
+            options["country"] = country_code
 
         geonames = geocoder.geonames(address, **options)
 
@@ -140,13 +146,10 @@ class Place(TimeStampedModel):
         if len(address) < 3:
             return None
 
-        options = {
-            'key': settings.GEONAMES_KEY,
-            'maxRows': 1
-        }
+        options = {"key": settings.GEONAMES_KEY, "maxRows": 1}
 
         if country_code:
-            options['country'] = country_code
+            options["country"] = country_code
 
         geonames = geocoder.geonames(address, **options)
 
